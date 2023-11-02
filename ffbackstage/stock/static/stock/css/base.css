@@ -1,0 +1,373 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --color-light-accent: #D3BE9B;
+    --color-dark-accent: #D43D62;
+    --color-light-shades: #F4F5F3;
+    --color-dark-shades: #192327;
+    --color-main-brand: #F26C5B;
+}
+/*
+Light accent #D3BE9B
+Dark accent #D43D62
+Light shades #F4F5F3
+Dark shades #192327
+Main brand color #F26C5B
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--color-dark-shades);
+    font-size: 18px;
+    color: var(--color-dark-shades);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (max-width:1199px) {
+    .container {
+        max-width: 960px;
+    }
+
+    .div_wrapper .table-box {
+        overflow-x: scroll;
+    }
+}
+
+@media (max-width:991px) {
+    .container{
+        max-width: 720px;
+    }
+}
+
+@media (max-width:767px) {
+    .container{
+        max-width: 545px;
+    }
+
+    .div_wrapper .grid{
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(4, 200px);
+        grid-template-areas:
+        "one"
+        "three"
+        "two"
+        "four";
+        }
+}
+
+@media (max-width:575px) {
+    .container{
+        max-width:none;
+    }
+    .div_wrapper .form_authentication div img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .product_card div.obout img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+.div_wrapper{
+    padding: 40px;
+    background: var(--color-light-shades);
+    margin: 40px auto;
+    border-radius: 5px;
+}
+
+.nav_bar{
+    background-color: var(--color-main-brand);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+                0 3px 20px 0px rgba(0, 0, 0, 0.12),
+                0 8px 10px -5px rgba(0, 0, 0, 0.2);
+
+}
+
+.nav_bar ul{
+    padding: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.nav_bar li {
+    list-style-type: none;
+    margin: 12px 0;
+}
+
+.nav_bar a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: var(--color-light-shades);
+    transition: all 0.5s ease;
+    font-weight: 100;
+    font-size: 30px;
+    padding: 10px;
+    border: 1px solid var(--color-main-brand);
+
+}
+
+.nav_bar a:hover {
+    color: var(--color-dark-accent);
+    border: 1px solid var(--color-dark-accent);
+    border-radius: 5px;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.grid {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+    /* grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); */
+    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 150px);
+    grid-template-areas:
+    "one three three three"
+    "... three three three"
+    "two ..... ..... ....."
+    "two ... four four";
+}
+
+.grid div, div.product_card div {
+    border-radius: 5px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+                0 3px 20px 0px rgba(0, 0, 0, 0.12),
+                0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.grid div.one {
+    grid-area: one;
+    background-color: var(--color-light-accent);
+}
+
+.grid div.two {
+    grid-area: two;
+    background-color: var(--color-light-accent);
+}
+
+.grid div.three {
+    grid-area: three;
+    background-color: var(--color-main-brand);
+}
+
+.grid div.four {
+    grid-area: four;
+    background-color: var(--color-dark-accent);
+}
+
+.form_authentication {
+    background: var(--color-main-brand) ;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+                0 3px 20px 0px rgba(0, 0, 0, 0.12),
+                0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form_authentication div img {
+    width: 250px;
+    height: 250px;
+}
+
+.form_authentication_intro{
+    background: var(--color-light-accent);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+    0 3px 20px 0px rgba(0, 0, 0, 0.12),
+    0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    margin: 40px;
+    padding: 20px;
+}
+
+.form_authentication_field{
+    background: var(--color-dark-accent);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+    0 3px 20px 0px rgba(0, 0, 0, 0.12),
+    0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    margin: 40px 0;
+    padding: 20px;
+    text-align: right;
+}
+
+
+.form_authentication_field button {
+    background: var(--color-light-shades);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+                0 3px 20px 0px rgba(0, 0, 0, 0.12),
+                0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-top: 80px;
+    border: 0
+}
+
+.table-box {
+    max-width: 1200px;
+    max-height: 600px;
+    overflow: scroll;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+thead {
+    border: 1px solid #ccc;
+}
+th, td {
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    white-space: nowrap;
+    padding: 5px;
+}
+
+td:nth-last-child(-n+2) {
+    text-align: right;
+}
+
+div.table-box a {
+    text-decoration: none;
+    color: var(--color-main-brand);
+    transition: all 0.5s ease;
+} 
+
+div.table-box a:hover {
+    color:var(--color-dark-shades);
+}
+
+.product_card {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 20px;
+    grid-template-areas:
+    "status"
+    "obout"
+    "debit"
+    "credit"
+}
+
+div.product_card div.table-box {
+    grid-area: status;
+    background-color: var(--color-main-brand);
+}
+
+div.product_card div.obout {
+    display: flex;
+    flex-flow: row wrap ;
+    justify-content: space-around;
+    align-items: center;
+    grid-area: obout;
+    background-color: var(--color-light-accent);
+}
+
+div.obout img{
+    width: 250px;
+    height: 250px;
+}
+
+div.obout div {
+    max-width: 500px;
+    background: var(--color-light-shades);
+    margin-top: 20px;
+}
+
+div.product_card div.debit {
+    grid-area: debit;
+    background-color: var(--color-light-accent);
+}
+
+div.product_card div.credit {
+    grid-area: credit;
+    background-color: var(--color-light-accent);
+}
+
+div.table-box a.btn {
+    display: block;
+    width: 90px;
+    color:var(--color-main-brand);
+    background-color: var(--color-light-shades);
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+                0 3px 20px 0px rgba(0, 0, 0, 0.12),
+                0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin: 10px 10px;
+    padding: 10px 20px;
+    transition: all 0.5s ease;
+}
+
+div.table-box a.btn:hover {
+    background: var(--color-dark-shades);
+}
+
+/* .filter_form {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+} */
+
+/* дивы в форме фильтрации*/
+/* .filter_form div{
+    background: var(--color-light-accent);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+                0 3px 20px 0px rgba(0, 0, 0, 0.12),
+                0 8px 10px -5px rgba(0, 0, 0, 0.2);
+} */
+
+.filter_form {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+    gap: 30px;
+}
+
+.filter_form button {
+    color: var(--color-light-shades);
+    font-weight: 100;
+    padding: 20px;
+    background: var(--color-main-brand);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+                0 3px 20px 0px rgba(0, 0, 0, 0.12),
+                0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    border: 0
+}
+ 
+/* Стили для скролла */
+::-webkit-scrollbar {
+	width: 6px;
+} 
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+
+footer {
+    display: flex;
+    justify-content: space-evenly;
+}

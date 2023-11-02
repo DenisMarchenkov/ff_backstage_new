@@ -1,0 +1,88 @@
+{% extends 'base_new.html' %}
+{% load static %}
+{% load stock_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="div_wrapper">
+        <div class="product_card">
+            <div class="table-box">
+                <table class="table_content">
+                    <thead>
+                        <tr>
+                            <th>Код</th>
+                            <th>Артикул</th>
+                            <th>Наименование</th>
+                            <th>Объем</th>
+                            <th>А</th>
+                            <th>П</th>
+                            <th>Р</th>
+                            <th>Доп.<br>скидка</th>
+                            <th>Доп.<br>наценка</th>
+                            <th>Марка</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{product.code}}</td>
+                        <td>{{product.article}}</td>
+                        <td>{{product.name|wordwrap:40|linebreaksbr}}</td>
+                        <td>{{product.unit}}</td>
+                        <td>{{product.is_active}}</td>
+                        <td>{{product.is_supplied}}</td>
+                        <td>{{product.is_promo}}</td>
+                        <td>{{product.discount}}</td>
+                        <td>{{product.markup}}</td>
+                        <td>{{product.brand}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p></p>
+                <table class="table_content">
+                    <thead>
+                        <tr>
+                            <th>При<br>заведении</th>
+                            <th>Итого<br>приход</th>
+                            <th>Итого<br>расход</th>
+                            <th>Остатки</th>
+                            <th>Автор</th>
+                            <th>Дата создания</th>
+                            <th>Дата обновления</th>
+                            <th>Базовая<br>цена</th>
+                            <th>Расчетная<br>цена</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{product.initial_qua}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{product.author.first_name}}</td>
+                        <td>{{product.time_create}}</td>
+                        <td>{{product.time_update}}</td>
+                        <td>{{product.base_price}}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a href="{% url 'stock:products' %}" class="btn">назад</a>
+            </div>
+            <div class="obout">
+                <img src="{% static '/stock/images/skincare_icon.png' %}" alt="skincare_icon">
+                <div><p>{{product.description|linebreaks}}</p></div>
+                <div>
+                    <p>Теги:</p>
+                    <ul>
+                {% for t in tags %}
+                    <li>{{t}}</li>
+                {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="debit">debit</div>
+            <div class="credit">credit</div>           
+        </div> 
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base_new.html' %}
+{% block content %}
+<div class="container">
+    <div class="div_wrapper">
+        <div class="products_filter">
+            <form class="filter_form" method="get">
+                {{form.as_div}}
+                <button class="filter_button" type="submit">Filter</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="div_wrapper">
+        <div class="table-box">
+            <table class="table_content">
+                <thead>
+                    <tr>
+                        <th>код</th>
+                        <th>артикул</th>
+                        <th>наименование</th>
+                        <th>форма<br>выпуска</th>
+                        <th>базовая<br>цена</th>
+                        <th>QNT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for p in products %}
+                <tr>
+                    <td><a href="{% url 'stock:product_card' p.slug %}">{{p.code}}</a></td>
+                    <td>{{p.article}}</td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.unit}}</td>
+                    <td>{{p.base_price}}</td>
+                    <td>{{p.initial_qua}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
