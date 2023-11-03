@@ -69,7 +69,12 @@
                 <a href="{% url 'stock:products' %}" class="btn">назад</a>
             </div>
             <div class="obout">
-                <img src="{% static '/stock/images/skincare_icon.png' %}" alt="skincare_icon">
+<!--                <img src="{% static '/stock/images/skincare_icon.png' %}" alt="skincare_icon">-->
+                {% if product.photo %}
+                    <img src="{{ product.photo.url }}" alt="skincare_icon">
+                {% else %}
+                    <img src="{% static '/stock/images/skincare_icon.png' %}" alt="skincare_icon">
+                {%endif%}
                 <div><p>{{product.description|linebreaks}}</p></div>
                 <div>
                     <p>Теги:</p>

@@ -23,6 +23,9 @@ class Products(models.Model):
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
     tags = models.ManyToManyField('TagsProducts', blank=True, related_name='tags')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='product_photos/%Y/%m/%d',
+                              default='product_photos/skincare_icon.png',
+                              verbose_name='Фото', blank=True, null=True)
     history = HistoricalRecords()
 
     objects = models.Manager()
