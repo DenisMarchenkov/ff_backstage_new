@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import DetailView
 
 from .forms import *
 from .models import *
@@ -95,18 +96,17 @@ def products(request):
     return render(request, 'stock/products.html', context=data)
 
 
-def show_product(request, product_slug):
-    product = get_object_or_404(Products, slug=product_slug)
-    tags = product.tags.filter()
-    data = {
-        'title': product.name,
-        'menu': menu,
-        'product': product,
-        'tags': tags,
-        # 'brand_selected': 0,
-        # 'product_slug': product_slug
-    }
-    return render(request, 'stock/product_card.html', context=data)
+class ShowProduct(DetailView):
+    model = Products
+    template_name = 'stock/product_card.html'
+    slug_url_kwarg = 'product_slug'
+    context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = context['product'].name
+        context['menu'] = menu
+        return context
 
 
 def brand_card(request):
