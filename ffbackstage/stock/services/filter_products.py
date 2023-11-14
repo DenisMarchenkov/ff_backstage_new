@@ -4,6 +4,7 @@ from stock.models import Products
 
 
 def filter_products(form):
+    #prod = que
     prod = Products.objects.all()
 
     if form.cleaned_data['brand']:
@@ -41,5 +42,5 @@ def filter_products(form):
             prod = prod.filter(Q(is_promo=promo[0]) | Q(is_promo=promo[1]))
         else:
             prod = prod.filter(is_promo=promo[0])
-
+    print(type(prod))
     return prod

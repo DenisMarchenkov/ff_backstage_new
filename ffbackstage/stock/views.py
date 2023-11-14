@@ -1,7 +1,7 @@
-from django.db.models import Q
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView, FormView
 
 from .forms import *
 from .models import *
@@ -47,20 +47,39 @@ def debit(request):
     return render(request, 'stock/debit.html', context=data)
 
 
-def products(request):
-    form = ProductFilterForm(request.GET)
-    products = Products.objects.all()
+# def products(request):
+#     form = ProductFilterForm(request.GET)
+#     products = Products.objects.all()
+#
+#     if form.is_valid():
+#          products = filter_products(form)
+#
+#     data = {
+#         'menu': menu,
+#         'title': 'Все товары',
+#         'products': products,
+#         'form': form
+#     }
+#     return render(request, 'stock/products.html', context=data)
 
-    if form.is_valid():
-         products = filter_products(form)
 
-    data = {
-        'menu': menu,
-        'title': 'Все товары',
-        'products': products,
-        'form': form
-    }
-    return render(request, 'stock/products.html', context=data)
+class ListProducts(ListView):
+    model = Products
+    template_name = 'stock/products.html'
+    context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        form = ProductFilterForm(self.request.GET)
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Список товаров'
+        context['menu'] = menu
+        context['form'] = form
+        return context
+
+    def get_queryset(self):
+        form = ProductFilterForm(self.request.GET)
+        if form.is_valid():
+            return filter_products(form)
 
 
 class ShowProduct(DetailView):
@@ -74,6 +93,7 @@ class ShowProduct(DetailView):
         context['title'] = context['product'].name
         context['menu'] = menu
         return context
+
 
 
 def brand_card(request):
