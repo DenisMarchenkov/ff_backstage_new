@@ -9,6 +9,7 @@ urlpatterns = [
     path('credit/', views.credit, name='credit'),
     path('debit/', views.debit, name='debit'),
     path('products/', views.products, name='products'),
+    #path('products/', views.ListProducts.as_view(), name='products'),
     path('products/<slug:product_slug>/', views.ShowProduct.as_view(), name='product_card'),
     path('brands/', views.brand_card, name='brand_card'),
     path('test/', views.test, name='test'),

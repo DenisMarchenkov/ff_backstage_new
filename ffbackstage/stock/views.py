@@ -1,10 +1,11 @@
 from django.db.models import Q
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 from .forms import *
 from .models import *
+from .services.filter_products import filter_products
 
 menu = [
     {'title': 'Home', 'url_name': 'stock:stock'},
@@ -51,41 +52,7 @@ def products(request):
     products = Products.objects.all()
 
     if form.is_valid():
-        if form.cleaned_data['brand']:
-            products = products.filter(brand__in=form.cleaned_data['brand'])
-
-        if form.cleaned_data['search_field']:
-            search = form.cleaned_data['search_field']
-            if products.filter(name__icontains=search).exists():
-                products = products.filter(name__icontains=search)
-            elif products.filter(code__icontains=search).exists():
-                products = products.filter(code__icontains=search)
-            else:
-                products = products.filter(article__icontains=search)
-
-        if form.cleaned_data['tag']:
-            products = products.filter(tags__in=form.cleaned_data['tag']).distinct()
-
-        if form.cleaned_data['supplied']:
-            supplied = form.cleaned_data['supplied']
-            if len(supplied) > 1:
-                products = products.filter(Q(is_supplied=supplied[0]) | Q(is_supplied=supplied[1]))
-            else:
-                products = products.filter(is_supplied=supplied[0])
-
-        if form.cleaned_data['active']:
-            active = form.cleaned_data['active']
-            if len(active) > 1:
-                products = products.filter(Q(is_active=active[0]) | Q(is_active=active[1]))
-            else:
-                products = products.filter(is_active=active[0])
-
-        if form.cleaned_data['promo']:
-            promo = form.cleaned_data['promo']
-            if len(promo) > 1:
-                products = products.filter(Q(is_promo=promo[0]) | Q(is_promo=promo[1]))
-            else:
-                products = products.filter(is_promo=promo[0])
+         products = filter_products(form)
 
     data = {
         'menu': menu,
