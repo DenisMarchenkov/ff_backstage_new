@@ -7,7 +7,7 @@ from simple_history.models import HistoricalRecords
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='users/images/%Y/%m/d',
+    photo = models.ImageField(upload_to='users/images/%Y/%m/%d',
                               verbose_name='Фото', blank=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
     history = HistoricalRecords()
@@ -20,6 +20,7 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
+
 
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
