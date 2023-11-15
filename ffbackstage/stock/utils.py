@@ -11,6 +11,16 @@ menu = [
 
 
 class MenuMixin:
+    extra_context = {}
+    title_page = None
+
+    def __init__(self):
+        if 'menu' not in self.extra_context:
+            self.extra_context['menu'] = menu
+
+        if self.title_page:
+            self.extra_context['title'] = self.title_page
+
     def get_mixin_content(self, context, **kwargs):
         context['menu'] = menu
         context.update(kwargs)

@@ -40,7 +40,6 @@ def debit(request):
 class ListProducts(MenuMixin, ListView):
     template_name = 'stock/products.html'
     context_object_name = 'products'
-    title_page = 'название страницы'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -65,14 +64,13 @@ class ShowProduct(MenuMixin, DetailView):
         return self.get_mixin_content(context, title=context['product'].name)
 
 
-def brand_card(request):
-    brands = Brands.objects.all()
+class ListBrands(MenuMixin, ListView):
+    template_name = 'stock/brands.html'
+    context_object_name = 'brands'
+    title_page = 'Список марок'
 
-    data = {'menu': menu,
-            'title': 'Все марки',
-            'body': brands
-            }
-    return render(request, 'stock/brands.html', context=data)
+    def get_queryset(self):
+        return Brands.objects.all().select_related('brand_prod')
 
 
 def test(request):
