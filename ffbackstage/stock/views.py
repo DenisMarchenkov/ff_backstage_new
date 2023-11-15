@@ -6,17 +6,7 @@ from django.views.generic import DetailView, ListView, FormView
 from .forms import *
 from .models import *
 from .services.filter_products import filter_products
-
-menu = [
-    {'title': 'Home', 'url_name': 'stock:stock'},
-    {'title': 'Debit', 'url_name': 'stock:debit'},
-    {'title': 'Credit', 'url_name': 'stock:credit'},
-    {'title': 'Products', 'url_name': 'stock:products'},
-    {'title': 'Brands', 'url_name': 'stock:brand_card'},
-    {'title': 'test', 'url_name': 'stock:test'},
-    {'title': 'login', 'url_name': 'users:login'},
-    {'title': 'logout', 'url_name': 'users:logout'},
-]
+from .utils import MenuMixin, menu
 
 
 def home(request):
@@ -47,34 +37,16 @@ def debit(request):
     return render(request, 'stock/debit.html', context=data)
 
 
-# def products(request):
-#     form = ProductFilterForm(request.GET)
-#     products = Products.objects.all()
-#
-#     if form.is_valid():
-#          products = filter_products(form)
-#
-#     data = {
-#         'menu': menu,
-#         'title': 'Все товары',
-#         'products': products,
-#         'form': form
-#     }
-#     return render(request, 'stock/products.html', context=data)
-
-
-class ListProducts(ListView):
-    model = Products
+class ListProducts(MenuMixin, ListView):
     template_name = 'stock/products.html'
     context_object_name = 'products'
+    title_page = 'название страницы'
 
     def get_context_data(self, **kwargs):
-        form = ProductFilterForm(self.request.GET)
         context = super().get_context_data(**kwargs)
         context['title'] = 'Список товаров'
-        context['menu'] = menu
-        context['form'] = form
-        return context
+        context['form'] = ProductFilterForm(self.request.GET)
+        return self.get_mixin_content(context)
 
     def get_queryset(self):
         form = ProductFilterForm(self.request.GET)
@@ -82,7 +54,7 @@ class ListProducts(ListView):
             return filter_products(form)
 
 
-class ShowProduct(DetailView):
+class ShowProduct(MenuMixin, DetailView):
     model = Products
     template_name = 'stock/product_card.html'
     slug_url_kwarg = 'product_slug'
@@ -90,10 +62,7 @@ class ShowProduct(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = context['product'].name
-        context['menu'] = menu
-        return context
-
+        return self.get_mixin_content(context, title=context['product'].name)
 
 
 def brand_card(request):
