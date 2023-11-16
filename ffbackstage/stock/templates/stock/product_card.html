@@ -79,7 +79,7 @@
                 <div>
                     <p>Теги:</p>
                     <ul>
-                {% for t in tags %}
+                {% for t in product.tags.all %}
                     <li>{{t}}</li>
                 {% endfor %}
                     </ul>

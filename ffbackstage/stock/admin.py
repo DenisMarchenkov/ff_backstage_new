@@ -10,9 +10,15 @@ class ProductsAdmin(SimpleHistoryAdmin):
     search_fields = ('code', 'article', 'name')
     filter_horizontal = ['tags']
     prepopulated_fields = {'slug': ('name',)}
+    exclude = ('author',)
 
     history_list_display = [
     ]
+
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            obj.author = request.user
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(Brands)

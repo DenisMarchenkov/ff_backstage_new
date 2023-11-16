@@ -46,3 +46,9 @@ class ProductFilterForm(forms.Form):
         required=False,
         widget=forms.CheckboxSelectMultiple
     )
+
+
+class AddProductForm(forms.ModelForm):
+    class Meta:
+        model = Products
+        exclude = ['author']

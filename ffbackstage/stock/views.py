@@ -1,5 +1,5 @@
 from django.http import HttpResponseNotFound
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, FormView
 
@@ -40,10 +40,10 @@ def debit(request):
 class ListProducts(MenuMixin, ListView):
     template_name = 'stock/products.html'
     context_object_name = 'products'
+    title_page = 'Список товаров'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Список товаров'
         context['form'] = ProductFilterForm(self.request.GET)
         return self.get_mixin_content(context)
 
@@ -62,6 +62,38 @@ class ShowProduct(MenuMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return self.get_mixin_content(context, title=context['product'].name)
+
+
+class AddProduct(MenuMixin, FormView):
+    form_class = AddProductForm
+    template_name = 'stock/add_product.html'
+    success_url = reverse_lazy('stock:products')
+    title_page = 'Добавление товара'
+
+    def form_valid(self, form):
+        new_product = form.save(commit=False)
+        new_product.author = self.request.user
+        new_product.save()
+        return super().form_valid(new_product)
+
+
+
+# def add_product(request):
+#     if request.method == 'POST':
+#         form = AddProductForm(request.POST)
+#         if form.is_valid():
+#             new_product = form.save(commit=False)
+#             new_product.author = request.user
+#             new_product.save()
+#             return redirect('stock:products')
+#     else:
+#         form = AddProductForm()
+#
+#     data = {'menu': menu,
+#             'title': 'Добавление товара',
+#             'form': form,
+#             }
+#     return render(request, 'stock/add_product.html', context=data)
 
 
 class ListBrands(MenuMixin, ListView):
@@ -88,31 +120,3 @@ def test(request):
 def page_not_found(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
-
-# def show_brand(request, brand_slug):
-#     brand = get_object_or_404(Brands, slug=brand_slug)
-#     products = Products.objects.filter(brand_id=brand.pk)
-#
-#     data = {
-#         'menu': menu,
-#         'title': f'Товары в марке: {brand.name}',
-#         'products': products,
-#         'sidebar': brand,
-#         'brand_selected': brand.pk,
-#     }
-#     return render(request, 'stock/products.html', context=data)
-
-
-# def show_tag_products_list(request, tag_slug):
-#     tag = get_object_or_404(TagsProducts, slug=tag_slug)
-#     products = tag.tags.filter()
-#     print(products[0].brand.slug)
-#
-#     data = {
-#         'menu': menu,
-#         'title': f'Тег: {tag.tag}',
-#         'products': products,
-#         'brand_selected': None,
-#         'tag_selected': tag.pk
-#     }
-#     return render(request, 'stock/products.html', context=data)
