@@ -1,7 +1,7 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView, FormView
+from django.views.generic import DetailView, ListView, FormView, UpdateView
 
 from .forms import *
 from .models import *
@@ -68,7 +68,7 @@ class AddProduct(MenuMixin, FormView):
     form_class = AddProductForm
     template_name = 'stock/add_product.html'
     success_url = reverse_lazy('stock:products')
-    title_page = 'Добавление товара'
+    title_page = 'Добавление нового продукта'
 
     def form_valid(self, form):
         new_product = form.save(commit=False)
@@ -77,23 +77,13 @@ class AddProduct(MenuMixin, FormView):
         return super().form_valid(new_product)
 
 
-
-# def add_product(request):
-#     if request.method == 'POST':
-#         form = AddProductForm(request.POST)
-#         if form.is_valid():
-#             new_product = form.save(commit=False)
-#             new_product.author = request.user
-#             new_product.save()
-#             return redirect('stock:products')
-#     else:
-#         form = AddProductForm()
-#
-#     data = {'menu': menu,
-#             'title': 'Добавление товара',
-#             'form': form,
-#             }
-#     return render(request, 'stock/add_product.html', context=data)
+class UpdateProduct(MenuMixin, UpdateView):
+    model = Products
+    fields = ['name', 'article', 'description']
+    template_name = 'stock/add_product.html'
+    title_page = 'Редактирование товара'
+    success_url = reverse_lazy('stock:products')
+    context_object_name = 'product'
 
 
 class ListBrands(MenuMixin, ListView):

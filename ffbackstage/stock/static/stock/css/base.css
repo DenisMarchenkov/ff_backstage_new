@@ -302,7 +302,8 @@ div.product_card div.credit {
 
 div.table-box a.btn {
     display: block;
-    width: 90px;
+    width: 150px;
+    text-align: center;
     color:var(--color-main-brand);
     background-color: var(--color-light-shades);
     box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
@@ -312,13 +313,14 @@ div.table-box a.btn {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 14px;
-    margin: 10px 10px;
+    margin: 20px 10px;
     padding: 10px 20px;
     transition: all 0.5s ease;
 }
 
 div.table-box a.btn:hover {
-    background: var(--color-dark-shades);
+    background: var(--color-dark-accent);
+    color:var(--color-dark-shades);
 }
 
 div.obout img {
@@ -362,6 +364,76 @@ div.obout img {
     text-transform: uppercase;
     border: 0
 }
+
+/* Стили для формы добавления продукта */
+.form_addprod {
+    background: var(--color-main-brand) ;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+                0 3px 20px 0px rgba(0, 0, 0, 0.12),
+                0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form_addprod_intro_wrapper{
+    background: var(--color-light-shades);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+                0 3px 20px 0px rgba(0, 0, 0, 0.12),
+                0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    margin-top: 80px;
+    margin-bottom: 40px;
+}
+
+.form_addprod_intro{
+    background: var(--color-light-accent);
+    background-image: url(typewriter/layer0.png), url(typewriter/layer1.png);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+                0 3px 20px 0px rgba(0, 0, 0, 0.12),
+                0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    margin: -40px 20px 20px 20px ;         
+}
+
+.form_addprod div img {
+    width: 300px;
+    height: 300px;
+}
+
+.form_addprod_intro_text{
+    padding: 20px 20px 30px 20px;
+    text-align: center;
+}
+
+.form_addprod_field{
+    background: var(--color-dark-accent);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+    0 3px 20px 0px rgba(0, 0, 0, 0.12),
+    0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    margin: 40px 0;
+    padding: 20px;
+    text-align: right;
+}
+
+.add_product_button {
+    display: inline-block;
+    color: var(--color-light-shades);
+    padding: 20px;
+    background: var(--color-dark-accent);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
+                0 3px 20px 0px rgba(0, 0, 0, 0.12),
+                0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 100;
+    text-align: center;
+}
+
 
 /* Стили для скролла */
 ::-webkit-scrollbar {
