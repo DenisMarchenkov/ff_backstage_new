@@ -390,17 +390,25 @@ div.obout img {
 
 .form_addprod_intro{
     background: var(--color-light-accent);
-    background-image: url(typewriter/layer0.png), url(typewriter/layer1.png);
+    background-image: url(../images/layer_form_logo.png), url(../images/form_logo.png);
+    background-size: 100%;
+    background-blend-mode: multiply, normal;
     border-radius: 5px;
     box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
                 0 3px 20px 0px rgba(0, 0, 0, 0.12),
                 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-    margin: -40px 20px 20px 20px ;         
+
+    width: 90%;
+    padding-top: 90%;  
+    margin-top: -10%;
+    margin-left: 5%;
+   
 }
 
+
 .form_addprod div img {
-    width: 300px;
-    height: 300px;
+    width: auto;
+    height: auto;
 }
 
 .form_addprod_intro_text{

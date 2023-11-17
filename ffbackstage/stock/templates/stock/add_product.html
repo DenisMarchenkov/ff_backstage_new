@@ -5,11 +5,9 @@
     <div class="div_wrapper">
         <div class="form_addprod">
             <div class="form_addprod_intro_wrapper">
-                <div class="form_addprod_intro">
-                    <img src="{% static '/stock/images/form_logo.png' %}" alt="typewriter">
-                </div>
+                <div class="form_addprod_intro"></div>
                 <div class="form_addprod_intro_text">
-                    {{ title }}<br>{{ product.name|wordwrap:2|linebreaksbr }}
+                    {{ title }}<br>{{ product.name|wordwrap:40|linebreaksbr}}
                 </div>
             </div>
             <div class="form_addprod_field">
