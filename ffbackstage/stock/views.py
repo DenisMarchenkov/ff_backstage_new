@@ -5,7 +5,7 @@ from django.views.generic import DetailView, ListView, FormView, UpdateView
 
 from .forms import *
 from .models import *
-from .services.filter_products import filter_products
+from .services.filter_products import filter_products, filter_products_new
 from .utils import MenuMixin, menu
 
 
@@ -50,7 +50,7 @@ class ListProducts(MenuMixin, ListView):
     def get_queryset(self):
         form = ProductFilterForm(self.request.GET)
         if form.is_valid():
-            return filter_products(form)
+            return filter_products_new(form)
 
 
 class ShowProduct(MenuMixin, DetailView):
@@ -79,7 +79,12 @@ class AddProduct(MenuMixin, FormView):
 
 class UpdateProduct(MenuMixin, UpdateView):
     model = Products
-    fields = ['name', 'article', 'description']
+    fields = [
+        'article', 'name', 'unit', 'description',
+        'initial_qua', 'base_price',
+        'is_active', 'is_supplied', 'is_promo',
+        'markup', 'discount', 'brand', 'tags', 'photo',
+    ]
     template_name = 'stock/add_product.html'
     title_page = 'Редактирование товара'
     success_url = reverse_lazy('stock:products')
@@ -109,4 +114,3 @@ def test(request):
 
 def page_not_found(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
-

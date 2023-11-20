@@ -42,3 +42,45 @@ def filter_products(form):
         else:
             prod = prod.filter(is_promo=promo[0])
     return prod
+
+
+def filter_products_new(form):
+    filters = form.cleaned_data
+    for k, v in filters.copy().items():
+        if v == '' or len(v) < 1:
+            filters.pop(k)
+        else:
+            filters.pop(k)
+            if k == 'brand':
+                filters[f'{k}__in'] = v
+            if k == 'tag':
+                filters[f'{k}s__in'] = v
+            if k == 'search_field':
+                filters['name__icontains'] = v
+            if k == 'active':
+                if len(v) > 1:
+                    pass
+                else:
+                    filters['is_active'] = v[0]
+            if k == 'promo':
+                if len(v) > 1:
+                    pass
+                else:
+                    filters['is_promo'] = v[0]
+            if k == 'supplied':
+                if len(v) > 1:
+                    pass
+                else:
+                    filters['is_supplied'] = v[0]
+
+    result = Products.objects.filter(**filters)
+    if result.exists():
+        return result.distinct()
+    else:
+        result = Products.objects.filter(code__icontains=filters['name__icontains'])
+        if result.exists():
+            return result
+        else:
+            result = Products.objects.filter(article__icontains=filters['name__icontains'])
+            return result
+
